@@ -39,15 +39,27 @@ Gracias por querer ayudar. Este proyecto es técnico y experimental; antes de ab
 
 ## Flujo
 
+La rama de integración es **`develop`**. Todos los PR van ahí; `main` solo recibe merges de release.
+
 ```bash
+git checkout develop
+git pull origin develop
 git checkout -b feat/mi-cambio
 # programa y prueba
 python -m compileall tools
 cmake --preset linux-dev && cmake --build --preset linux-dev
 git commit -m "feat(render): add widescreen hook"
 git push -u origin feat/mi-cambio
-gh pr create --fill
+gh pr create --base develop --fill
 ```
+
+Los hotfix urgentes también parten de `develop`; solo se abre un PR directo a `main` si hay que
+parchear una release ya publicada, y después se hace merge de vuelta a `develop`.
+
+### Protección de ramas
+
+`develop` y `main` requieren pull request y CI en verde (`Python tools`, `Build doctor (ubuntu-latest)`,
+`Build doctor (windows-latest)`). No se permite force-push ni borrar las ramas.
 
 ## Commits
 

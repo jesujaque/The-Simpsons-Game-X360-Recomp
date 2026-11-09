@@ -8,6 +8,7 @@ Scripts de apoyo al pipeline. Todos usan solo la biblioteca estándar de Python 
 | `extract_iso.py` | Extrae una ISO con `extract-xiso` |
 | `codegen.py` | Ejecuta el codegen de ReXGlue sobre el manifiesto |
 | `triage.py` | Convierte llamadas no resueltas del log en entradas de `functions_patch.toml` |
+| `package_release.py` | Empaqueta una release sin datos del juego |
 
 ## Flujo típico
 

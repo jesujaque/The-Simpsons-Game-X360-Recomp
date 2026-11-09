@@ -1,5 +1,9 @@
 # The Simpsons Game — Xbox 360 Recompiled
 
+[![CI](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Estado](https://img.shields.io/badge/estado-scaffold-orange.svg)](docs/ROADMAP.md)
+
 Recompilación estática de **The Simpsons Game** (Xbox 360, 2007) para ejecutarlo de forma nativa en PC
 (Windows y Linux), sin emulación de CPU. El código PowerPC del ejecutable original se traduce una sola
 vez a C++ y se compila para x86-64 con [ReXGlue](https://github.com/rexglue/rexglue-sdk), el SDK de
@@ -145,6 +149,26 @@ Detalle y criterios de aceptación en [docs/ROADMAP.md](docs/ROADMAP.md).
 
 Este proyecto es independiente y no reutiliza assets ni código propietario de esos proyectos más
 allá de las licencias que correspondan.
+
+## Ramas y releases
+
+| Rama | Propósito |
+| --- | --- |
+| `main` | Solo versiones publicables. Recibe merges desde `develop` cuando se cierra un hito. |
+| `develop` | Rama de integración y **destino por defecto de los pull requests**. |
+| `feat/*`, `fix/*`, `docs/*` | Trabajo diario; se abren PR contra `develop`. |
+
+Los tags `v*` se crean **desde `main`** y disparan el workflow de release. No se etiqueta `develop`.
+
+Hitos de release:
+
+| Versión | Criterio |
+| --- | --- |
+| `v0.1.0` | El ejecutable arranca y llega al menú principal. |
+| `v0.2.0` | Primer episodio jugable de principio a fin. |
+| `v1.0.0` | Campaña completa y cierre limpio. |
+
+El proceso completo está en [docs/RELEASING.md](docs/RELEASING.md).
 
 ## Contribuir
 

@@ -8,6 +8,9 @@ y el versionado [SemVer](https://semver.org/lang/es/).
 
 ### Añadido
 
+- Modelo de ramas `develop`/`main` con PRs obligatorios y CI en verde.
+- Workflow de release por tag `v*` con validación de versión y rama.
+- Herramienta `package_release.py` y guía [docs/RELEASING.md](docs/RELEASING.md).
 - Estructura inicial del proyecto: CMake, presets, CI y documentación.
 - Manifiesto de ReXGlue y tabla de parches de funciones.
 - Herramientas `bootstrap`, `extract_iso`, `codegen` y `triage`.
