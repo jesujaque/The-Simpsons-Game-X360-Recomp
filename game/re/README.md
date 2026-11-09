@@ -4,6 +4,7 @@ Notas de investigación del ejecutable y los datos del juego. Todo aquí es orig
 binarios, capturas de assets ni volcados de código propietario.
 
 - [addresses.md](addresses.md) — funciones identificadas y su propósito.
+- [boot-sequence.md](boot-sequence.md) — orden de inicialización observado y confirmado.
 - [formats.md](formats.md) — formatos de archivo y estructura de datos.
 
 ## Convenciones

@@ -8,6 +8,8 @@ y el versionado [SemVer](https://semver.org/lang/es/).
 
 ### Añadido
 
+- Runbook completo de la fase 1 (`docs/PHASE-1-ANALYSIS.md`) y plantillas de investigación.
+- `tools/verify_dump.py` para validar el volcado y generar `game/re/dump-report.md`.
 - Modelo de ramas `develop`/`main` con PRs obligatorios y CI en verde.
 - Workflow de release por tag `v*` con validación de versión y rama.
 - Herramienta `package_release.py` y guía [docs/RELEASING.md](docs/RELEASING.md).

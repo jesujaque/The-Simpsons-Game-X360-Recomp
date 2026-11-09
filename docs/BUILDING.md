@@ -54,6 +54,17 @@ game/extracted/
 
 Nada de esto se sube al repositorio.
 
+### Herramientas de análisis (fase 1)
+
+Además del entorno de compilación necesitarás:
+
+- **Ghidra** + **XEXLoaderWV** (fork SaveEditors) + JDK 21.
+- **XenonAnalyse**, incluido en las releases de XenonRecomp.
+- **Xenia Canary** para la línea base.
+- `python tools/verify_dump.py --root game/extracted --md game/re/dump-report.md`.
+
+El proceso completo está en [PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md).
+
 ## 4. Generar el código
 
 ```bash
