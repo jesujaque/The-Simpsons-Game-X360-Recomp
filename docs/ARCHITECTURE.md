@@ -41,8 +41,12 @@
 | Capa | Ubicación | Responsabilidad |
 | --- | --- | --- |
 | Plataforma | `game/src/platform` | Rutas, detección de SO, directorios de datos/guardado |
-| Aplicación | `game/src/app` | Ciclo de vida, arranque, diagnóstico, orden de inicialización |
-| Hooks | `game/src/hooks` | Sustituciones de funciones del juego y callbacks del runtime |
+| VFS | `game/src/platform/vfs.*` | Traducción de rutas Xbox (`d:\`, `save:\`) al host |
+| Configuración | `game/src/app/config.*` | Lectura y validación de `config.toml` |
+| Arranque | `game/src/app/application.*`, `boot_trace.*` | Ciclo de vida, etapas y criterios de salida |
+| Runtime | `game/src/app/runtime.*` | Contrato con ReXGlue y backend nulo de desarrollo |
+| Assets | `game/src/assets` | Inventario, `Frontend.str` y sondeo de contenedores |
+| Hooks | `game/src/hooks` | Sustituciones, stubs y llamadas no resueltas |
 | Parches | `game/src/patches` | Cambios de comportamiento (FPS, aspect ratio, fixes) |
 | Render | `game/src/renderer` | Ajustes sobre la capa gráfica de ReXGlue |
 | Audio | `game/src/audio` | Mezcla, volúmenes, fixes de streaming |
@@ -84,7 +88,19 @@ XEX ──► codegen ──► build ──► run ──► crash / función n
 ```
 
 Antes del codegen, la fase 1 produce el mapa del binario:
-[PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md).
+[PHASE-1-ANALYSIS.md](001-analisis-y-linea-base/PHASE-1-ANALYSIS.md).
+
+La integración de las fases 2–3 se apoya en tres contratos:
+
+1. `RuntimeBackend` (`game/src/app/runtime.h`): inicializa el runtime y ejecuta
+   el entrypoint. Sin SDK se usa un backend nulo que no finge hitos.
+2. `VirtualFileSystem` (`game/src/platform/vfs.h`): convierte rutas del juego a
+   rutas del host y corrige mayúsculas en Linux.
+3. `BootTrace` (`game/src/app/boot_trace.h`): registra hasta dónde llega el
+   arranque y genera `game/re/logs/boot-trace.md`.
+
+Detalle operativo en [PHASE-2-IMPLEMENTATION.md](002-primer-enlace/PHASE-2-IMPLEMENTATION.md) y
+[PHASE-3-IMPLEMENTATION.md](003-menu-principal/PHASE-3-IMPLEMENTATION.md).
 
 Cada vez que el runtime se detenga por una llamada no resuelta:
 

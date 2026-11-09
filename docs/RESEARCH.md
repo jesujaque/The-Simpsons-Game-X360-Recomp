@@ -3,7 +3,8 @@
 Notas técnicas sobre el binario y los datos del juego. Todo se obtiene de una copia propia y se
 documenta aquí para no repetir trabajo. **No se incluyen binarios ni datos extraídos.**
 
-> **Fase actual:** [Fase 1 — Análisis y línea base](PHASE-1-ANALYSIS.md). Ese documento es el
+> **Fase actual:** [Fase 1 — Análisis y línea base](001-analisis-y-linea-base/README.md). El runbook está en
+> [PHASE-1-ANALYSIS.md](001-analisis-y-linea-base/PHASE-1-ANALYSIS.md). Ese documento es el
 > runbook operativo; esta página es el índice de hallazgos.
 
 ## Identificación
@@ -36,7 +37,7 @@ Regla: una hipótesis sin evidencia se marca como hipótesis. No se inventan nom
 
 | Documento | Contenido |
 | --- | --- |
-| [PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md) | Runbook completo de la fase 1 |
+| [PHASE-1-ANALYSIS.md](001-analisis-y-linea-base/PHASE-1-ANALYSIS.md) | Runbook completo de la fase 1 |
 | [../game/re/addresses.md](../game/re/addresses.md) | Funciones identificadas |
 | [../game/re/boot-sequence.md](../game/re/boot-sequence.md) | Orden de inicialización |
 | [../game/re/formats.md](../game/re/formats.md) | Contenedores y estructuras |

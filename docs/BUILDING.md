@@ -63,16 +63,22 @@ Además del entorno de compilación necesitarás:
 - **Xenia Canary** para la línea base.
 - `python tools/verify_dump.py --root game/extracted --md game/re/dump-report.md`.
 
-El proceso completo está en [PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md).
+El proceso completo está en [PHASE-1-ANALYSIS.md](001-analisis-y-linea-base/PHASE-1-ANALYSIS.md).
 
 ## 4. Generar el código
 
 ```bash
+# Comprueba el manifiesto y que exista game/extracted/default.xex (no requiere SDK).
+python tools/codegen.py --verify-only
+
 python tools/codegen.py --sdk tools/rexglue-sdk
 ```
 
 El script ejecuta `rexglue codegen` con `game/simpsons_manifest.toml` y escribe en
 `game/generated/default/`. La primera pasada puede tardar entre 10 y 40 minutos.
+Si el SDK resuelve las rutas de entrada de otra forma, añade
+`--skip-input-check`; si la ejecución no produce ningún `.cpp`, el script
+termina con error para evitar dar por bueno un codegen vacío.
 
 Si aparecen funciones no resueltas, añádelas a `game/functions_patch.toml` y repite.
 
@@ -115,9 +121,15 @@ Opciones útiles:
 | `--game-root <dir>` | Directorio con los datos instalados |
 | `--config <file>` | Configuración TOML |
 | `--log-level <n>` | 0 silencioso, 3 trazas completas |
+| `--trace-out <file>` | Informe Markdown de la traza de arranque |
+| `--headless` | Sin ventana; valida la cadena de arranque |
+| `--windowed` | Fuerza ventana |
 | `--vulkan` / `--d3d12` | Forzar backend gráfico |
-| `--windowed` | Forzar ventana |
 | `--fps <n>` | Límite de FPS de presentación |
+
+El arranque con backend nulo y la activación de ReXGlue se detallan en
+[PHASE-2-IMPLEMENTATION.md](002-primer-enlace/PHASE-2-IMPLEMENTATION.md) y
+[PHASE-3-IMPLEMENTATION.md](003-menu-principal/PHASE-3-IMPLEMENTATION.md).
 
 ## Problemas comunes
 

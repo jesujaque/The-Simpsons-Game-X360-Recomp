@@ -8,7 +8,16 @@ y el versionado [SemVer](https://semver.org/lang/es/).
 
 ### Añadido
 
-- Runbook completo de la fase 1 (`docs/PHASE-1-ANALYSIS.md`) y plantillas de investigación.
+- Infraestructura de fases 2–3 sin SDK: runtime nulo, VFS, hooks/stubs, traza de arranque,
+  catálogo de assets, mapa de entrada y audio configurable.
+- `docs/002-primer-enlace/PHASE-2-IMPLEMENTATION.md` y
+  `docs/003-menu-principal/PHASE-3-IMPLEMENTATION.md` con el contrato del runtime y los pasos de enlace.
+- Carga de `config.toml` con validación de rangos (sin dependencias externas).
+- Pruebas de núcleo (`SimpsonsCoreTests`) para config, VFS, traza, hooks, assets y entrada.
+- `tools/triage.py` reconoce también las llamadas no resueltas del `HookRegistry`.
+- `tools/codegen.py` valida manifiesto y entradas, admite `--verify-only` y falla si el codegen no genera `.cpp`.
+- Documentación por fases en `docs/NNN-titulo-fase/`, con índice y convención en `docs/README.md`.
+- Runbook completo de la fase 1 (`docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md`) y plantillas de investigación.
 - `tools/verify_dump.py` para validar el volcado y generar `game/re/dump-report.md`.
 - Modelo de ramas `develop`/`main` con PRs obligatorios y CI en verde.
 - Workflow de release por tag `v*` con validación de versión y rama.
