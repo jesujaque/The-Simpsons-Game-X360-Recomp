@@ -1,6 +1,9 @@
 #include "app/doctor.h"
 
+#include "app/config.h"
+#include "assets/asset_catalog.h"
 #include "platform/paths.h"
+#include "platform/vfs.h"
 
 #include <filesystem>
 #include <iostream>
@@ -36,6 +39,7 @@ void PrintHeader() {
 void PrintUsage() {
     std::cout << "Uso: SimpsonsDoctor [opciones]\n\n"
               << "  --game-root <dir>  Directorio con default.xex y datos extraídos\n"
+              << "  --config <file>    Configuración TOML a validar\n"
               << "  --strict           Devuelve código de error si falta el juego\n"
               << "  --help             Muestra esta ayuda\n";
 }
@@ -44,6 +48,7 @@ void PrintUsage() {
 
 int RunDoctor(int argc, char** argv) {
     fs::path game_root_hint;
+    fs::path config_hint;
     bool strict = false;
 
     for (int i = 1; i < argc; ++i) {
@@ -58,6 +63,10 @@ int RunDoctor(int argc, char** argv) {
         }
         if (arg == "--game-root" && i + 1 < argc) {
             game_root_hint = argv[++i];
+            continue;
+        }
+        if (arg == "--config" && i + 1 < argc) {
+            config_hint = argv[++i];
             continue;
         }
         std::cerr << "Argumento desconocido: " << arg << "\n\n";
@@ -79,15 +88,33 @@ int RunDoctor(int argc, char** argv) {
                       game_root.has_value(), true});
 
     if (game_root) {
-        checks.push_back({"Carpeta Frontend.str", (*game_root / "Frontend.str").string(),
-                          fs::exists(*game_root / "Frontend.str"), false});
+        const auto missing = assets::AssetCatalog::MissingRequired(*game_root);
+        checks.push_back({"Frontend.str", (*game_root / "Frontend.str").string(),
+                          missing.size() < 2, false});
+
+        assets::AssetCatalog catalog;
+        catalog.Scan(*game_root);
+        const auto summary = catalog.Summarize();
+        checks.push_back({"Inventario de assets",
+                          std::to_string(summary.total_files) + " archivos, " +
+                              std::to_string(summary.total_bytes) + " bytes",
+                          summary.total_files > 0, false});
+
+        platform::VirtualFileSystem vfs;
+        vfs.Mount("d", *game_root);
+        vfs.SetDefaultMount(*game_root);
+        const auto resolved = vfs.ResolveExisting("d:\\Frontend.str");
+        checks.push_back({"VFS d:\\Frontend.str",
+                          resolved ? resolved->string() : "no resuelto",
+                          resolved.has_value(), false});
     }
 
     const auto manifest = cwd / "game" / "simpsons_manifest.toml";
     checks.push_back({"Manifiesto de ReXGlue", manifest.string(), fs::exists(manifest), true});
 
     const auto functions_patch = cwd / "game" / "functions_patch.toml";
-    checks.push_back({"Parches de funciones", functions_patch.string(), fs::exists(functions_patch), false});
+    checks.push_back({"Parches de funciones", functions_patch.string(),
+                      fs::exists(functions_patch), false});
 
     const auto sdk_dir = cwd / "tools" / "rexglue-sdk";
     checks.push_back({"SDK de ReXGlue", sdk_dir.string(), fs::exists(sdk_dir), false});
@@ -104,8 +131,18 @@ int RunDoctor(int argc, char** argv) {
     }
     checks.push_back({"Código generado", generated.string(), has_generated_code, false});
 
-    const auto config = cwd / "config.toml";
-    checks.push_back({"config.toml", config.string(), fs::exists(config), false});
+    const auto config_path = config_hint.empty() ? cwd / "config.toml" : config_hint;
+    const bool has_config = fs::exists(config_path);
+    if (has_config) {
+        const GameConfig config = LoadConfig(config_path);
+        const bool clean = config.warnings.empty();
+        checks.push_back({"config.toml válido", clean ? config_path.string()
+                                                       : config.warnings.front(),
+                          clean, false});
+    } else {
+        checks.push_back({"config.toml", config_path.string() + " (se usarán defaults)", false,
+                          false});
+    }
 
     std::cout << "Comprobaciones:\n";
     for (const auto& check : checks) {

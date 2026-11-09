@@ -18,6 +18,8 @@ de recompilación, trabajando a tiempo parcial.
 
 ## Fase 0 — Andamiaje (hecho)
 
+> Documentación de la fase: **[000-andamiaje](000-andamiaje/README.md)**.
+
 - [x] Repositorio, licencia, README y documentación.
 - [x] Manifiesto y configuración de ReXGlue.
 - [x] Herramientas de extracción, verificación, generación y triaje.
@@ -28,7 +30,8 @@ de recompilación, trabajando a tiempo parcial.
 
 ## Fase 1 — Análisis y línea base (3–5 días)
 
-> Runbook completo: **[PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md)**.
+> Documentación de la fase: **[001-analisis-y-linea-base](001-analisis-y-linea-base/README.md)**.
+> Runbook completo: **[PHASE-1-ANALYSIS.md](001-analisis-y-linea-base/PHASE-1-ANALYSIS.md)**.
 
 ### Tareas
 
@@ -61,14 +64,24 @@ documentados y el codegen de la fase 2 puede ejecutarse sin incógnitas estructu
 
 ## Fase 2 — Primer enlace (3–7 días)
 
+> Documentación de la fase: **[002-primer-enlace](002-primer-enlace/README.md)**.
+> Runbook de implementación: **[PHASE-2-IMPLEMENTATION.md](002-primer-enlace/PHASE-2-IMPLEMENTATION.md)**.
+> La infraestructura sin SDK está implementada; el enlace real requiere el volcado y el SDK.
+> Seguimiento: [#2 Codegen + primer enlace](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/issues/2)
+> y [#5 Hooks confirmados](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/issues/5).
+
 ### Tareas
 
-- [ ] Generar el código con ReXGlue.
-- [ ] Enlazar el runtime y llegar a `main`.
+- [x] Contrato de runtime (`RuntimeBackend`) y backend nulo de desarrollo.
+- [x] Carga de `config.toml` y validación de rangos.
+- [x] Sistema de archivos virtual con montajes `d/device/game/save/cache`.
+- [x] Registro de hooks/stubs y acumulación de llamadas no resueltas.
+- [x] Traza de arranque con informe Markdown (`--trace-out`).
+- [x] Ciclo de vida de la ventana/present (simulado sin SDK).
+- [ ] Generar el código con ReXGlue (requiere `default.xex` + SDK).
+- [ ] Enlazar el runtime real y llegar a `main`.
 - [ ] Resolver las primeras llamadas no registradas con `tools/triage.py`.
-- [ ] Crear la ventana e inicializar el sistema de archivos.
-- [ ] Implementar stubs mínimos de XAM/kernel que falten.
-- [ ] Conseguir el primer clear/present sin crash.
+- [ ] Conseguir el primer clear/present real.
 
 ### Entregables
 
@@ -76,22 +89,36 @@ documentados y el codegen de la fase 2 puede ejecutarse sin incógnitas estructu
 - Lista de hooks/stubs en `game/src/hooks/` y `game/src/patches/`.
 - `game/re/addresses.md` actualizado con lo aprendido.
 
-**Criterio de salida:** el proceso arranca, crea ventana y no muere antes del primer frame.
+**Criterio de salida:** el proceso arranca, crea ventana (o modo headless) y no muere antes del
+primer frame; la traza marca `Entrypoint`…`Input` como alcanzadas.
 
 ## Fase 3 — Menú principal (1–3 semanas)
 
+> Documentación de la fase: **[003-menu-principal](003-menu-principal/README.md)**.
+> Runbook de implementación: **[PHASE-3-IMPLEMENTATION.md](003-menu-principal/PHASE-3-IMPLEMENTATION.md)**.
+> La infraestructura de assets, rutas, entrada y audio está implementada y probada.
+> Seguimiento: [#4 Assets y frontend](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/issues/4)
+> y [#3 Navegación y audio](https://github.com/jesujaque/The-Simpsons-Game-X360-Recomp/issues/3).
+
 ### Tareas
 
+- [x] Catálogo e inventario de assets; validación de `Frontend.str`.
+- [x] Sondeo de cabeceras (`.str`, `.pkg`, `.lvl`, `.lua`, XEX, BIK).
+- [x] Hooks de sistema de archivos con resolución tolerante a mayúsculas.
+- [x] Mapa de acciones mando/teclado configurable (`[input.bindings]`).
+- [x] Audio configurable (volúmenes y estado) sobre el mixer stub.
 - [ ] Depurar el boot hasta el logo de EA.
-- [ ] Corregir el cargador de assets (`.str`, `.pkg`).
-- [ ] Implementar hooks de sistema de archivos si las rutas no coinciden.
+- [ ] Corregir el cargador real de assets (`.str`, `.pkg`).
 - [ ] Renderizar el frontend sin basura de VRAM.
-- [ ] Audio básico en menús.
+- [ ] Audio básico en menús con XMA real.
 - [ ] Confirmar navegación con mando y teclado.
 
-**Criterio de salida:** menú principal navegable con música.
+**Criterio de salida:** menú principal navegable con música; la traza marca `Frontend` como
+alcanzada.
 
 ## Fase 4 — Primer nivel jugable (2–6 semanas)
+
+> Documentación de la fase: **[004-primer-nivel-jugable](004-primer-nivel-jugable/README.md)**.
 
 ### Tareas
 
@@ -105,6 +132,8 @@ documentados y el codegen de la fase 2 puede ejecutarse sin incógnitas estructu
 
 ## Fase 5 — Estabilidad (3–8 semanas)
 
+> Documentación de la fase: **[005-estabilidad](005-estabilidad/README.md)**.
+
 ### Tareas
 
 - [ ] Recorrer los 18 episodios con un save completo.
@@ -116,6 +145,8 @@ documentados y el codegen de la fase 2 puede ejecutarse sin incógnitas estructu
 **Criterio de salida:** campaña completa y cierre limpio.
 
 ## Fase 6 — Mejoras de port (continuo)
+
+> Documentación de la fase: **[006-mejoras-de-port](006-mejoras-de-port/README.md)**.
 
 - [ ] 60 FPS con lógica a velocidad original (timestep fijo).
 - [ ] Ultrawide y FOV ajustable.

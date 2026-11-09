@@ -14,7 +14,12 @@ recompilación derivado de Xenia.
 > con el runtime todavía no están incluidos.
 >
 > **Fase actual: 1 — Análisis y línea base.** Runbook operativo:
-> [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md).
+> [docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md](docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md).
+>
+> **Fases 2 y 3:** la infraestructura del port (runtime, VFS, hooks, assets, entrada, audio y traza
+> de arranque) ya está implementada y probada sin SDK. El enlace real con ReXGlue requiere tu
+> `default.xex` y el SDK; consulta [docs/002-primer-enlace/PHASE-2-IMPLEMENTATION.md](docs/002-primer-enlace/PHASE-2-IMPLEMENTATION.md)
+> y [docs/003-menu-principal/PHASE-3-IMPLEMENTATION.md](docs/003-menu-principal/PHASE-3-IMPLEMENTATION.md).
 
 > **Aviso legal:** este proyecto **no incluye ni distribuirá** ningún contenido del juego (texturas,
 > modelos, audio, vídeo, scripts, niveles ni el ejecutable original). Para usarlo necesitas tu propia
@@ -135,7 +140,10 @@ Consulta [docs/BUILDING.md](docs/BUILDING.md) para el detalle paso a paso y
 | --- | --- |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Capas, pipeline y decisiones de diseño |
 | [docs/BUILDING.md](docs/BUILDING.md) | Entorno, extracción, codegen y compilación |
-| [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md) | Runbook de la fase actual (análisis) |
+| [docs/README.md](docs/README.md) | Índice de documentación y convención por fases |
+| [docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md](docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md) | Runbook de la fase 1 (análisis) |
+| [docs/002-primer-enlace/PHASE-2-IMPLEMENTATION.md](docs/002-primer-enlace/PHASE-2-IMPLEMENTATION.md) | Runtime, VFS, hooks y traza de arranque |
+| [docs/003-menu-principal/PHASE-3-IMPLEMENTATION.md](docs/003-menu-principal/PHASE-3-IMPLEMENTATION.md) | Assets, frontend, entrada y audio |
 | [docs/RESEARCH.md](docs/RESEARCH.md) | Índice de investigación y hallazgos |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Fases, entregables y criterios de salida |
 | [docs/RELEASING.md](docs/RELEASING.md) | Ramas, tags y publicación |
@@ -148,14 +156,14 @@ Consulta [docs/BUILDING.md](docs/BUILDING.md) para el detalle paso a paso y
 | --- | --- | --- |
 | 0 | Scaffold, CI, manifiesto y herramientas | ✅ |
 | 1 | Extracción de la ISO y análisis del `default.xex` | ⬜ |
-| 2 | Codegen completo y enlazado con ReXGlue | ⬜ |
-| 3 | Arranque hasta el logo / menú principal | ⬜ |
+| 2 | Codegen completo y enlazado con ReXGlue | 🟡 infraestructura |
+| 3 | Arranque hasta el logo / menú principal | 🟡 infraestructura |
 | 4 | Primer nivel jugable (Homer, "The Simpsons Game") | ⬜ |
 | 5 | Audio, guardado y configuración estables | ⬜ |
 | 6 | 60 FPS, ultrawide y mejoras de PC | ⬜ |
 
 Detalle y criterios de aceptación en [docs/ROADMAP.md](docs/ROADMAP.md). El runbook de la fase
-actual está en [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md).
+actual está en [docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md](docs/001-analisis-y-linea-base/PHASE-1-ANALYSIS.md).
 
 ## Prior art y créditos
 

@@ -21,6 +21,25 @@ Gracias por querer ayudar. Este proyecto es técnico y experimental; antes de ab
 6. **No rompas el build doctor**: `cmake --preset linux-dev && cmake --build --preset linux-dev`
    debe seguir funcionando sin SDK ni codegen.
 
+## Documentación por fase
+
+La documentación operativa se organiza por fase del roadmap, no toda suelta en
+`docs/`:
+
+- Cada fase vive en `docs/NNN-titulo-fase/`, con tres dígitos y un título corto
+  en minúsculas separado por guiones. La numeración coincide con
+  [docs/ROADMAP.md](docs/ROADMAP.md): `000-andamiaje`, `001-analisis-y-linea-base`,
+  `002-primer-enlace`, etc.
+- Cada carpeta debe tener un `README.md` como índice: estado, alcance,
+  runbook(s), tareas abiertas, criterio de salida y enlaces.
+- Los documentos transversales (`ARCHITECTURE`, `BUILDING`, `LEGAL`,
+  `RELEASING`, `RESEARCH`, `ROADMAP`) siguen en la raíz de `docs/`.
+- Al crear una fase nueva, crea su carpeta y su `README.md` en el mismo PR; no
+  dejes documentos de fase en la raíz de `docs/`.
+- Al mover o renombrar documentos, actualiza los enlaces relativos y ejecuta
+  `python tools/check_docs.py`.
+- El índice y la convención completa están en [docs/README.md](docs/README.md).
+
 ## Nombres de rama
 
 | Prefijo | Uso | Ejemplo |
@@ -82,7 +101,8 @@ gh pr create --base develop --fill
 
 - Título con Conventional Commits.
 - Descripción: qué cambia, por qué y cómo se ha probado.
-- Fase del roadmap afectada (`Fase 0–6`).
+- Fase del roadmap afectada (`Fase 0–6`) y enlace al `README.md` de su carpeta
+  en `docs/NNN-titulo-fase/` si el cambio toca esa fase.
 - Enlaces a issues relacionados.
 - Checklist del template completada.
 

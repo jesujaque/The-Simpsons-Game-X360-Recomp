@@ -33,6 +33,20 @@ print(data.hex(" "))
 PY
 ```
 
+## Sondeo automático en el port
+
+`SimpsonsRecomp` inventaría los datos extraídos al arrancar y puede volcar los
+primeros 64 bytes de un asset para clasificarlo:
+
+```
+[fs] montajes: d/device/game -> game/extracted, save -> ..., cache -> ...
+[fs] falta un asset requerido: Frontend.str
+```
+
+`AssetCatalog::Probe` reconoce `XEX2`, `BIK` y bytecode Lua (`1B 4C 75 61`), y
+marca el resto como texto o binario sin inventar un formato. Usa ese resultado
+para rellenar las secciones de abajo; no sustituye al análisis de Ghidra.
+
 ## Contenedores observados
 
 ### `.str`

@@ -21,4 +21,7 @@ std::optional<std::filesystem::path> FindGameRoot(const std::filesystem::path& h
 /// "Windows" o "Linux" en tiempo de compilación.
 std::string_view PlatformName();
 
+/// Crea un directorio (y sus padres) sin lanzar excepciones.
+bool EnsureDirectory(const std::filesystem::path& path);
+
 } // namespace simpsons::platform

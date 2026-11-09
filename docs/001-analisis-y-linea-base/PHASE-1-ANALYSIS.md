@@ -4,7 +4,7 @@
 > conocimiento suficiente para que la fase 2 (codegen + enlace) no sea a ciegas.
 >
 > **Duración orientativa:** 3–5 días de trabajo efectivo.
-> **Requisito de entrada:** copia legal del juego y entorno de [BUILDING.md](BUILDING.md).
+> **Requisito de entrada:** copia legal del juego y entorno de [BUILDING.md](../BUILDING.md).
 
 ---
 
@@ -343,5 +343,5 @@ desbloquea la fase 2.
 
 ## 13. Siguiente fase
 
-Cuando esta checklist esté cerrada, pasa a la [fase 2 del roadmap](ROADMAP.md): generar el código,
+Cuando esta checklist esté cerrada, pasa a la [fase 2 del roadmap](../ROADMAP.md): generar el código,
 enlazar ReXGlue y resolver las primeras llamadas no registradas.

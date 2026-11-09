@@ -11,6 +11,7 @@ project(
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 option(SIMPSONS_FULL_BUILD "Build the full ReXGlue game executable (requires SDK + generated code)" OFF)
+option(SIMPSONS_HAVE_REXGLUE_API "Enable the real ReXGlue runtime bridge (requires src/app/runtime_rexglue.cpp)" OFF)
 option(SIMPSONS_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
 set(CMAKE_CXX_STANDARD 20)

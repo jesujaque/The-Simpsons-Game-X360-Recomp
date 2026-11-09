@@ -26,6 +26,8 @@ ADDRESS_PATTERNS = [
     re.compile(r"unresolved\s+(?:indirect\s+)?call(?:\s+at)?\s*[:\s]\s*(0x[0-9A-Fa-f]{8})", re.I),
     re.compile(r"no function registered for\s*(0x[0-9A-Fa-f]{8})", re.I),
     re.compile(r"unknown function\s*(0x[0-9A-Fa-f]{8})", re.I),
+    re.compile(r"llamada no resuelta\s*(0x[0-9A-Fa-f]{8})", re.I),
+    re.compile(r"^\|\s*`?(0x[0-9A-Fa-f]{8})`?\s*\|", re.M),
 ]
 
 
