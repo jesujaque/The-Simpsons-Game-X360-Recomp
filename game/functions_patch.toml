@@ -1,0 +1,23 @@
+# Fronteras de funciones declaradas a mano.
+#
+# El analizador de ReXGlue descubre funciones por llamadas directas y por
+# vtables RTTI, pero no las que solo se alcanzan mediante punteros en tablas de
+# datos. Cada entrada aquí le dice al recompilador "esto es una función".
+#
+# Formato:
+#   "0xDIRECCION" = {}
+#
+# Añade siempre un comentario con el contexto: de dónde salió el puntero, en
+# qué punto del juego se alcanza y qué síntoma provocaba el fallo.
+#
+# Las direcciones de ejemplo de abajo son ilustrativas; sustitúyelas por las
+# que confirmes en tu propio volcado.
+
+[functions]
+# Callback de arranque invocado desde la lista de constructores.
+# "0x82A71810" = {}
+#
+# Handlers del sistema de contenido (DLC residual).
+# "0x828385B8" = {}  # *.lvl
+# "0x82837EC0" = {}  # *.costume
+# "0x82836670" = {}  # *.lua

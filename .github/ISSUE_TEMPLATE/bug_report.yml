@@ -1,0 +1,64 @@
+name: Bug report
+description: Reporta un fallo de compilación, arranque o gameplay
+title: "[bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar. No adjuntes archivos del juego ni enlaces a ISOs.
+  - type: input
+    id: version
+    attributes:
+      label: Versión o commit
+      placeholder: "v0.1.0 / 1a2b3c4"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Sistema operativo
+      options:
+        - Windows 11
+        - Windows 10
+        - Linux (Steam Deck)
+        - Linux (escritorio)
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducir
+      placeholder: |
+        1. Ejecutar ...
+        2. Cargar ...
+        3. Ocurre ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamiento esperado
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs relevantes
+      description: Pega el log sin rutas personales. Puedes usar `--log-level 3`.
+      render: text
+  - type: input
+    id: dump
+    attributes:
+      label: Región y revisión del volcado
+      placeholder: "USA 45410809 / PAL ..."
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmación
+      options:
+        - label: Uso una copia legal del juego.
+          required: true
+        - label: No he adjuntado contenido del juego.
+          required: true

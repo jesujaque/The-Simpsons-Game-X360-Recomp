@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tools:
+    name: Python tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile scripts
+        run: python -m compileall -q tools
+      - name: Validate TOML
+        run: |
+          python - <<'PY'
+          import pathlib, tomllib
+          files = list(pathlib.Path('.').rglob('*.toml'))
+          for path in files:
+              with path.open('rb') as handle:
+                  tomllib.load(handle)
+          print(f"OK: {len(files)} archivos TOML válidos")
+          PY
+      - name: Help output
+        run: |
+          python tools/bootstrap.py --help
+          python tools/extract_iso.py --help
+          python tools/codegen.py --help
+          python tools/triage.py --help
+
+  doctor:
+    name: Build doctor (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DSIMPSONS_FULL_BUILD=OFF -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Run doctor
+        shell: bash
+        run: ./build/bin/SimpsonsDoctor${EXE_SUFFIX} --help
+        env:
+          EXE_SUFFIX: ${{ matrix.os == 'windows-latest' && '.exe' || '' }}

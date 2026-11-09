@@ -1,0 +1,26 @@
+# Manifiesto del proyecto para ReXGlue.
+# Generado a mano a partir de la documentación del SDK; ajústalo a tu versión.
+#
+# `game_root` y `file_path` son relativos a este archivo. El XEX nunca se sube
+# al repositorio: cada usuario ejecuta el codegen con su propia copia.
+
+[project]
+name = "simpsons"
+sdk_version = "0.8.0"
+game_root = "extracted"
+
+[entrypoint]
+file_path = "extracted/default.xex"
+out_directory_path = "generated/default"
+includes = ["functions_patch.toml"]
+
+# Módulos adicionales: añade aquí DLLs/XEXs si el juego los carga en runtime.
+# [[modules]]
+# file_path = "extracted/extra.xex"
+# out_directory_path = "generated/extra"
+
+[options]
+# Genera nombres estables para depuración.
+emit_debug_names = true
+# Traza las llamadas indirectas no resueltas en lugar de abortar.
+unresolved_calls_are_fatal = true

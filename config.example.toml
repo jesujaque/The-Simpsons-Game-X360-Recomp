@@ -1,0 +1,59 @@
+# Configuración de ejecución de ejemplo.
+# Copia este archivo a `config.toml` y ajusta las rutas.
+
+[general]
+# Directorio con los datos extraídos de tu copia del juego.
+game_root = "game/extracted"
+# Idioma del juego: "en", "es", "fr", "de", "it".
+language = "es"
+# 0 = silencioso, 1 = errores, 2 = info, 3 = trazas.
+log_level = 2
+
+[window]
+width = 1920
+height = 1080
+fullscreen = true
+borderless = false
+vsync = true
+# "auto", "vulkan", "d3d12" o "d3d11".
+backend = "auto"
+# "16:9", "21:9" o "stretch".
+aspect_ratio = "16:9"
+
+[graphics]
+# 1.0 = resolución nativa; 2.0 = supersampling 2x.
+render_scale = 1.0
+anisotropic_filtering = 8
+fxaa = true
+# Límite de presentación. La lógica del juego se mantiene a su ritmo original.
+max_fps = 60
+
+[audio]
+enabled = true
+master_volume = 1.0
+music_volume = 1.0
+sfx_volume = 1.0
+
+[input]
+# "auto", "xinput" o "keyboard".
+device = "auto"
+deadzone = 0.15
+invert_camera_y = false
+# Rebinding opcional: nombre de acción = código de tecla/botón.
+[input.bindings]
+confirm = "gamepad_a"
+cancel = "gamepad_b"
+pause = "gamepad_start"
+jump = "gamepad_a"
+attack = "gamepad_x"
+interact = "gamepad_y"
+
+[patches]
+skip_logos = false
+unlock_fps = false
+# Parche experimental; puede romper scripts.
+widescreen = true
+
+[paths]
+save_dir = "saves"
+cache_dir = "cache"

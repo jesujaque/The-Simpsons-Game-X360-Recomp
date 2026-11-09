@@ -1,0 +1,73 @@
+# Builds
+build/
+out/
+install/
+cmake-build-*/
+CMakeUserPresets.json
+
+# Game data (never commit)
+game/extracted/
+game/generated/*
+!game/generated/.gitkeep
+!game/generated/README.md
+*.iso
+*.xiso
+*.xex
+*.xbe
+*.gpd
+*.god
+*.data/
+*.str
+*.pkg
+*.lvl
+*.costume
+*.bik
+*.xma
+*.wav
+*.dds
+*.tga
+*.png
+*.jpg
+!assets/**/*.png
+!assets/**/*.jpg
+
+# SDKs y binarios de terceros
+tools/rexglue-sdk/
+tools/XenonRecomp/
+tools/extract-xiso/
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.pdb
+*.ilk
+
+# IDE / editor
+.vs/
+.vscode/
+.idea/
+*.sln
+*.vcxproj*
+*.user
+*.suo
+*.swp
+*~
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs y temporales
+*.log
+*.dmp
+*.tmp
+crash-*/

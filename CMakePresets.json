@@ -1,0 +1,90 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "windows-dev",
+      "displayName": "Windows - doctor (no SDK)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SIMPSONS_FULL_BUILD": "OFF"
+      }
+    },
+    {
+      "name": "linux-dev",
+      "displayName": "Linux - doctor (no SDK)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SIMPSONS_FULL_BUILD": "OFF"
+      }
+    },
+    {
+      "name": "windows-full",
+      "displayName": "Windows - full game (ReXGlue)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SIMPSONS_FULL_BUILD": "ON",
+        "REXGLUE_SDK_DIR": "${sourceDir}/tools/rexglue-sdk"
+      }
+    },
+    {
+      "name": "linux-full",
+      "displayName": "Linux - full game (ReXGlue)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SIMPSONS_FULL_BUILD": "ON",
+        "REXGLUE_SDK_DIR": "${sourceDir}/tools/rexglue-sdk"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "windows-dev", "configurePreset": "windows-dev" },
+    { "name": "linux-dev", "configurePreset": "linux-dev" },
+    { "name": "windows-full", "configurePreset": "windows-full" },
+    { "name": "linux-full", "configurePreset": "linux-full" }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "linux-dev",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
