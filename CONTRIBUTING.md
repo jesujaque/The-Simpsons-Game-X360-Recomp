@@ -56,6 +56,9 @@ gh pr create --base develop --fill
 Los hotfix urgentes también parten de `develop`; solo se abre un PR directo a `main` si hay que
 parchear una release ya publicada, y después se hace merge de vuelta a `develop`.
 
+Al mergear una feature en `develop`, usa **squash**. Al mergear `develop` en `main` para una
+release, usa **merge commit** (sin squash) para conservar el historial del hito.
+
 ### Protección de ramas
 
 `develop` y `main` requieren pull request y CI en verde (`Python tools`, `Build doctor (ubuntu-latest)`,
