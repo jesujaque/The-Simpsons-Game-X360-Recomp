@@ -83,6 +83,9 @@ XEX ──► codegen ──► build ──► run ──► crash / función n
   └──── functions_patch.toml ◄── triaje ◄──┘
 ```
 
+Antes del codegen, la fase 1 produce el mapa del binario:
+[PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md).
+
 Cada vez que el runtime se detenga por una llamada no resuelta:
 
 1. Anota la dirección en `game/re/addresses.md`.

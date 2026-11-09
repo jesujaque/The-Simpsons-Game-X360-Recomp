@@ -71,3 +71,10 @@ venv/
 *.dmp
 *.tmp
 crash-*/
+
+# Análisis local (nunca versionar binarios ni proyectos de Ghidra)
+game/re/ghidra/
+game/re/dumps/
+game/re/logs/
+*.gpr
+*.rep

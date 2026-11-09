@@ -34,8 +34,12 @@ jobs:
         run: |
           python tools/bootstrap.py --help
           python tools/extract_iso.py --help
+          python tools/verify_dump.py --help
           python tools/codegen.py --help
           python tools/triage.py --help
+          python tools/package_release.py --help
+      - name: Check documentation links
+        run: python tools/check_docs.py
 
   doctor:
     name: Build doctor (${{ matrix.os }})

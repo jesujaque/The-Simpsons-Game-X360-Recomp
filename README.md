@@ -12,6 +12,9 @@ recompilación derivado de Xenia.
 > **Estado: andamiaje inicial (scaffold).** El repositorio contiene la estructura del proyecto, las
 > herramientas de preparación y el manifiesto del recompilador. El código generado y la integración
 > con el runtime todavía no están incluidos.
+>
+> **Fase actual: 1 — Análisis y línea base.** Runbook operativo:
+> [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md).
 
 > **Aviso legal:** este proyecto **no incluye ni distribuirá** ningún contenido del juego (texturas,
 > modelos, audio, vídeo, scripts, niveles ni el ejecutable original). Para usarlo necesitas tu propia
@@ -65,7 +68,8 @@ traduce los comandos y shaders del juego. Sustituirla por un renderer nativo es 
 - CMake ≥ 3.24 y Ninja.
 - Python ≥ 3.10.
 - [ReXGlue SDK](https://github.com/rexglue/rexglue-sdk/releases) (v0.8.0 o superior).
-- Ghidra + [XenonAnalyse](https://github.com/hedge-dev/XenonAnalyse) para análisis del binario.
+- Ghidra + [XEXLoaderWV](https://github.com/SaveEditors/XEXLoaderWV/releases) para cargar el XEX.
+- XenonAnalyse (incluido en las releases de XenonRecomp) para detectar funciones.
 - Xenia Canary como referencia de comportamiento.
 - Git con LFS **no** necesario (no se versionan assets).
 
@@ -82,10 +86,13 @@ python tools/bootstrap.py --check
 # 3. Extrae la ISO (requiere extract-xiso en el PATH)
 python tools/extract_iso.py "D:/dumps/The Simpsons Game.iso" --out game/extracted
 
-# 4. Genera el proyecto y el código recompilado
+# 4. Verifica el volcado y genera el informe de la fase 1
+python tools/verify_dump.py --root game/extracted --md game/re/dump-report.md
+
+# 5. Genera el proyecto y el código recompilado
 python tools/codegen.py --sdk tools/rexglue-sdk
 
-# 5. Compila en modo completo (requiere el SDK y el código generado)
+# 6. Compila en modo completo (requiere el SDK y el código generado)
 cmake --preset windows-full
 cmake --build --preset windows-full
 ```
@@ -108,7 +115,7 @@ Consulta [docs/BUILDING.md](docs/BUILDING.md) para el detalle paso a paso y
 ├── .github/                 CI, plantillas de issues y PR
 ├── assets/                  Recursos propios del port (no assets del juego)
 ├── cmake/                   Integración con ReXGlue
-├── docs/                    Arquitectura, build, investigación, roadmap y legal
+├── docs/                    Arquitectura, build, fase 1, investigación, roadmap y legal
 ├── game/                    Proyecto del juego
 │   ├── simpsons_manifest.toml   Manifiesto de entrada para ReXGlue
 │   ├── functions_patch.toml     Fronteras de funciones detectadas a mano
@@ -122,6 +129,19 @@ Consulta [docs/BUILDING.md](docs/BUILDING.md) para el detalle paso a paso y
 └── README.md
 ```
 
+## Documentación
+
+| Documento | Contenido |
+| --- | --- |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Capas, pipeline y decisiones de diseño |
+| [docs/BUILDING.md](docs/BUILDING.md) | Entorno, extracción, codegen y compilación |
+| [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md) | Runbook de la fase actual (análisis) |
+| [docs/RESEARCH.md](docs/RESEARCH.md) | Índice de investigación y hallazgos |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Fases, entregables y criterios de salida |
+| [docs/RELEASING.md](docs/RELEASING.md) | Ramas, tags y publicación |
+| [docs/LEGAL.md](docs/LEGAL.md) | Alcance legal y uso de datos del juego |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Flujo de ramas, PRs y estilo |
+
 ## Hoja de ruta
 
 | Fase | Hito | Estado |
@@ -134,7 +154,8 @@ Consulta [docs/BUILDING.md](docs/BUILDING.md) para el detalle paso a paso y
 | 5 | Audio, guardado y configuración estables | ⬜ |
 | 6 | 60 FPS, ultrawide y mejoras de PC | ⬜ |
 
-Detalle y criterios de aceptación en [docs/ROADMAP.md](docs/ROADMAP.md).
+Detalle y criterios de aceptación en [docs/ROADMAP.md](docs/ROADMAP.md). El runbook de la fase
+actual está en [docs/PHASE-1-ANALYSIS.md](docs/PHASE-1-ANALYSIS.md).
 
 ## Prior art y créditos
 

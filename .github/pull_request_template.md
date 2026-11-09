@@ -10,6 +10,10 @@
 - [ ] Herramientas / build / CI
 - [ ] Investigación (direcciones, formatos)
 
+## Fase del roadmap
+
+Fase: <!-- 0, 1, 2, 3, 4, 5 o 6 --> — enlace a la tarea de [ROADMAP](../docs/ROADMAP.md) si aplica.
+
 ## Cómo se ha probado
 
 - Sistema operativo:
@@ -22,5 +26,5 @@
 - [ ] No incluyo assets, binarios ni código generado del juego.
 - [ ] El PR apunta a `develop` (salvo hotfix documentado a `main`).
 - [ ] `cmake --preset linux-dev && cmake --build --preset linux-dev` sigue funcionando.
-- [ ] He actualizado la documentación afectada (`game/re/` si aplica).
-- [ ] El código sigue el estilo del proyecto (`.clang-format`).
+- [ ] Si hay investigación nueva, `game/re/` está actualizado con evidencia.
+- [ ] Si cambia el flujo o el build, `docs/` está actualizado.
