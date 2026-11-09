@@ -70,3 +70,6 @@
 2. Añade la fila a la tabla con evidencia y confianza.
 3. Si era una llamada indirecta, añádela a `game/functions_patch.toml`.
 4. Si el fallo es de comportamiento, prepara un hook en `game/src/hooks/`.
+5. Registra el hook confirmado en `HookRegistry` (`game/src/hooks/hooks.cpp`) y comprueba
+   `hook-report.md`: las llamadas no resueltas se convierten en entradas del TOML con
+   `python tools/triage.py <log> --write`.

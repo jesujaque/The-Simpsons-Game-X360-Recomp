@@ -76,4 +76,15 @@ std::string_view PlatformName() {
 #endif
 }
 
+bool EnsureDirectory(const fs::path& path) {
+    if (path.empty()) {
+        return false;
+    }
+    std::error_code ec;
+    if (fs::is_directory(path, ec)) {
+        return true;
+    }
+    return fs::create_directories(path, ec) || (!ec && fs::is_directory(path, ec));
+}
+
 } // namespace simpsons::platform

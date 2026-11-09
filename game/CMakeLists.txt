@@ -1,8 +1,26 @@
+# Núcleo compartido: no depende de ReXGlue ni del XEX del usuario. Lo usan el
+# doctor, el ejecutable completo y las pruebas.
+add_library(SimpsonsCore STATIC
+    src/app/boot_trace.cpp
+    src/app/config.cpp
+    src/assets/asset_catalog.cpp
+    src/hooks/hook_registry.cpp
+    src/input/keymap.cpp
+    src/platform/paths.cpp
+    src/platform/vfs.cpp
+)
+
+target_include_directories(SimpsonsCore PUBLIC src)
+target_compile_features(SimpsonsCore PUBLIC cxx_std_20)
+
+find_package(Threads REQUIRED)
+target_link_libraries(SimpsonsCore PUBLIC Threads::Threads)
+
 add_executable(SimpsonsDoctor
     src/doctor_main.cpp
     src/app/doctor.cpp
-    src/platform/paths.cpp
 )
+target_link_libraries(SimpsonsDoctor PRIVATE SimpsonsCore)
 
 target_include_directories(SimpsonsDoctor PRIVATE src)
 set_target_properties(SimpsonsDoctor PROPERTIES OUTPUT_NAME "SimpsonsDoctor")
@@ -22,7 +40,7 @@ if(SIMPSONS_FULL_BUILD)
     add_executable(SimpsonsRecomp
         src/main.cpp
         src/app/application.cpp
-        src/platform/paths.cpp
+        src/app/runtime.cpp
         src/hooks/hooks.cpp
         src/patches/patches.cpp
         src/renderer/renderer.cpp
@@ -33,7 +51,7 @@ if(SIMPSONS_FULL_BUILD)
     )
 
     target_include_directories(SimpsonsRecomp PRIVATE src generated)
-    target_link_libraries(SimpsonsRecomp PRIVATE rexglue::runtime)
+    target_link_libraries(SimpsonsRecomp PRIVATE SimpsonsCore rexglue::runtime)
     set_target_properties(SimpsonsRecomp PROPERTIES
         OUTPUT_NAME "SimpsonsRecomp"
         VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
@@ -42,5 +60,12 @@ if(SIMPSONS_FULL_BUILD)
         target_compile_definitions(SimpsonsRecomp PRIVATE SIMPSONS_PLATFORM_WINDOWS=1)
     else()
         target_compile_definitions(SimpsonsRecomp PRIVATE SIMPSONS_PLATFORM_LINUX=1)
+    endif()
+
+    # Integración real opcional. Cuando exista runtime_rexglue.cpp, activa:
+    #   -DSIMPSONS_HAVE_REXGLUE_API=ON
+    if(SIMPSONS_HAVE_REXGLUE_API)
+        target_compile_definitions(SimpsonsRecomp PRIVATE SIMPSONS_HAVE_REXGLUE_API=1)
+        target_sources(SimpsonsRecomp PRIVATE src/app/runtime_rexglue.cpp)
     endif()
 endif()

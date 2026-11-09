@@ -1,16 +1,30 @@
 #include "app/application.h"
 #include "platform/paths.h"
 
+#include <charconv>
 #include <iostream>
 #include <string>
+#include <system_error>
 
 namespace {
+
+bool ParseInt(const std::string& text, int& value) {
+    const char* begin = text.data();
+    const char* end = begin + text.size();
+    const auto result = std::from_chars(begin, end, value);
+    return result.ec == std::errc{} && result.ptr == end;
+}
 
 void PrintUsage() {
     std::cout << "Uso: SimpsonsRecomp [opciones]\n\n"
               << "  --game-root <dir>  Datos extraídos del juego\n"
               << "  --config <file>    Configuración TOML\n"
-              << "  --log-level <n>    0-3\n"
+              << "  --log-level <n>    0-3 (por defecto: el del config)\n"
+              << "  --trace-out <file> Escribe la traza de arranque en Markdown\n"
+              << "  --headless         Sin ventana; solo valida la cadena de arranque\n"
+              << "  --windowed         Fuerza ventana\n"
+              << "  --vulkan|--d3d12   Fuerza backend gráfico\n"
+              << "  --fps <n>          Límite de presentación\n"
               << "  --help             Muestra esta ayuda\n";
 }
 
@@ -29,23 +43,33 @@ int main(int argc, char** argv) {
             options.game_root = argv[++i];
         } else if (arg == "--config" && i + 1 < argc) {
             options.config = argv[++i];
+        } else if (arg == "--trace-out" && i + 1 < argc) {
+            options.trace_out = argv[++i];
         } else if (arg == "--log-level" && i + 1 < argc) {
-            options.log_level = std::stoi(argv[++i]);
+            if (!ParseInt(argv[++i], options.log_level)) {
+                std::cerr << "Valor inválido para --log-level.\n";
+                return 2;
+            }
+        } else if (arg == "--fps" && i + 1 < argc) {
+            if (!ParseInt(argv[++i], options.fps_override)) {
+                std::cerr << "Valor inválido para --fps.\n";
+                return 2;
+            }
+        } else if (arg == "--headless") {
+            options.headless = true;
+        } else if (arg == "--windowed") {
+            options.headless = false;
+        } else if (arg == "--vulkan") {
+            options.backend_override = "vulkan";
+        } else if (arg == "--d3d12") {
+            options.backend_override = "d3d12";
+        } else if (arg == "--d3d11") {
+            options.backend_override = "d3d11";
         } else {
             std::cerr << "Argumento desconocido: " << arg << "\n";
             PrintUsage();
             return 2;
         }
-    }
-
-    if (options.game_root.empty()) {
-        const auto found = simpsons::platform::FindGameRoot();
-        if (!found) {
-            std::cerr << "No se encontraron los datos del juego.\n"
-                      << "Usa --game-root <dir> o define SIMPSONS_GAME_ROOT.\n";
-            return 1;
-        }
-        options.game_root = *found;
     }
 
     simpsons::Application app(std::move(options));

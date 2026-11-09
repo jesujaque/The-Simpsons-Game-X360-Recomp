@@ -18,6 +18,33 @@ Cada fila debe tener evidencia; si no la hay, marca la confianza como **hipótes
 | Save usado | ninguno / completo / parcial |
 | Notas | |
 
+## Contrato con el port
+
+`SimpsonsRecomp` genera una traza con las mismas etapas que este documento:
+
+```bash
+./build/bin/SimpsonsRecomp --game-root game/extracted \
+  --trace-out game/re/logs/boot-trace.md
+```
+
+| Etapa del binario | Etapa de este documento |
+| --- | --- |
+| `Entrypoint` | 1 |
+| `Crt` | 2 |
+| `Heap` | 3 |
+| `FileSystem` | 4 |
+| `Render` | 5 |
+| `Audio` | 6 |
+| `Input` | 7 |
+| `Frontend` | 8 |
+| `Gameflow` | 9 |
+| `Level` | 10 |
+
+Una etapa solo se marca como **alcanzada** cuando el código real la ejecuta. El
+backend nulo de desarrollo deja `Frontend`, `Gameflow` y `Level` como
+**omitidas**. Copia los tiempos y el estado real de la traza en la tabla
+siguiente cuando ejecutes el volcado.
+
 ## Etapas
 
 | # | Etapa | Función / dirección | Evidencia | Confianza | Estado |
