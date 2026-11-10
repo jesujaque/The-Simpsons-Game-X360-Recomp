@@ -13,6 +13,7 @@ principal.
 | Documento | Contenido |
 | --- | --- |
 | [PHASE-1-ANALYSIS.md](PHASE-1-ANALYSIS.md) | Runbook operativo completo de la fase 1 |
+| [TOOLS-INSTALLATION.md](TOOLS-INSTALLATION.md) | Estado de herramientas e entorno instalados |
 
 ## Entregables
 
